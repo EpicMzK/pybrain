@@ -2,7 +2,7 @@ from __future__ import print_function
 
 __author__ = "Martin Felder, felder@in.tum.de"
 
-from numpy import zeros, where, ravel, r_, single
+from numpy import zeros, where, ravel, r_, single, int32
 from numpy.random import permutation
 from pybrain.datasets import SupervisedDataSet, SequentialDataSet
 
@@ -139,7 +139,8 @@ class ClassificationDataSet(SupervisedDataSet):
         if self.nClasses <= 0:
             self.calculateStatistics()
         oldtarg = self.getField('target')
-        newtarg = zeros([len(self), self.nClasses], dtype='Int32') + bounds[0]
+#         newtarg = zeros([len(self), self.nClasses], dtype='Int32') + bounds[0]
+        newtarg = zeros([len(self), self.nClasses], dtype=int32) + bounds[0]
         for i in range(len(self)):
             newtarg[i, int(oldtarg[i])] = bounds[1]
         self.setField('target', newtarg)
